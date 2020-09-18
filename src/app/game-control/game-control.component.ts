@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-game-control',
@@ -6,10 +6,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-control.component.css']
 })
 export class GameControlComponent implements OnInit {
+  @Output() intervalFired = new EventEmitter<number>();
+  interval;
+  lastNumber = 0;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onStartGame(){
+    console.log("asdfsgf");
+  
+    this.interval = setInterval(() => {
+      this.intervalFired.emit(this.lastNumber + 1);
+      this.lastNumber++;
+    },1000);
+  }
+  onPauseGame(){
+    clearInterval(this.interval);
+
   }
 
 }
